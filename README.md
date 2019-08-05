@@ -26,7 +26,7 @@ The OQMD API is only compatible with Python 2, so after running the script you m
 # Running the model
 To train the model used in the NMP-EDGE paper:
 
-`python runner.py  --cutoff const 100 --readout sumscalar  --num_passes 3 --update_edges --node_embedding_size 256 --dataset qm9  --edge_idx 0 --edge_expand 0.0,0.1,15.0  --learning_rate 5e-4 --target U0`
+`python runner.py  --cutoff const 100 --readout sumscalar  --num_passes 3 --update_edges --node_embedding_size 256 --dataset qm9  --edge_idx 0 --edge_expand 0.0,0.1,15.0  --learning_rate 1e-4 --target U0`
 
 To train the model on OQMD structures using the voronoi graph with symmetry labels:
 `python runner.py --fold 0 --cutoff voronoi 0.2 --readout avgscalar --num_passes 3 --node_embedding_size 256 --dataset oqmd12 --learning_rate 0.0001 --edge_idx 5 6 7 8 9 10 11 12 13 --update_edges`
