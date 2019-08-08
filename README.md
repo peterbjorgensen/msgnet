@@ -32,7 +32,7 @@ To train the model on OQMD structures using the voronoi graph with symmetry labe
 `python runner.py --fold 0 --cutoff voronoi 0.2 --readout avgscalar --num_passes 3 --node_embedding_size 256 --dataset oqmd12 --learning_rate 0.0001 --edge_idx 5 6 7 8 9 10 11 12 13 --update_edges`
 
 After the model is done training get the test set results by running
-`python predict_with_model --modelpath logs/path/to/model/model.ckpt-STEP.meta --output modeloutput.txt --split test`
+`python predict_with_model.py --modelpath logs/path/to/model/model.ckpt-STEP.meta --output modeloutput.txt --split test`
 
 # Future Development
 The model is implemented such that it avoids any padding/masking. This is achieved by reshaping the variable length inputs into the first dimension of the tensors, which is usually the batch dimension. However, this means we can't use the conventional Tensorflow methods for handling datasets as streams. If the framework is still used in the future I am planning to convert it into a tensorflow keras model when the RaggedTensor implementation is fully supported.
