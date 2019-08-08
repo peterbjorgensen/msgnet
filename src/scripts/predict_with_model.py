@@ -364,6 +364,12 @@ def main():
             else:
                 outpath = args.output
 
+            errors = model_predict - target_values
+            mae = np.mean(np.abs(errors))
+            rmse = np.sqrt(np.mean(np.square(errors)))
+
+            print("split=%s, num_samples=%d, mae=%s, rmse=%s" % (args.split, errors.shape[0], mae, rmse))
+
             np.savetxt(
                 outpath, np.stack((target_values, model_predict, row_id), axis=1)
             )
