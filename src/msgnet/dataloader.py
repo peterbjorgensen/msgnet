@@ -1,4 +1,5 @@
 import os
+import zlib
 import pickle
 import logging
 import gzip
@@ -52,21 +53,24 @@ class DataLoader:
         return graph_list
 
     def _save(self, obj_list):
-        with tarfile.open(self.final_dest, "w:gz") as tar:
+        with tarfile.open(self.final_dest, "w") as tar:
             for number, obj in enumerate(obj_list):
-                buf = io.BytesIO()
-                pickle.dump(obj, buf)
-                buf.seek(0)
+                pbytes = pickle.dumps(obj)
+                cbytes = zlib.compress(pbytes)
+                fsize = len(cbytes)
+                cbuf = io.BytesIO(cbytes)
+                cbuf.seek(0)
                 tarinfo = tarfile.TarInfo(name="%d" % number)
-                tarinfo.size = len(buf.getbuffer())
-                tar.addfile(tarinfo, buf)
+                tarinfo.size = fsize
+                tar.addfile(tarinfo, cbuf)
 
     def _load_data(self):
         obj_list = []
-        with tarfile.open(self.final_dest, "r:gz") as tar:
+        with tarfile.open(self.final_dest, "r") as tar:
             for tarinfo in tar.getmembers():
                 buf = tar.extractfile(tarinfo)
-                obj_list.append(pickle.load(buf))
+                decomp = zlib.decompress(buf)
+                obj_list.append(pickle.loads(decomp))
         return obj_list
 
     @staticmethod
