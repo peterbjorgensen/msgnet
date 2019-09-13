@@ -402,13 +402,15 @@ class FeatureGraph:
             edges = np.zeros((0, 1))
             connections = np.zeros((0, 2))
             connections_offset = np.zeros((0, 2, 3))
+        else:
+            connections_offset = np.stack(connections_offset, axis=0)
 
         return (
             np.array(nodes),
             atom_positions,
             np.array(edges),
             np.array(connections),
-            np.stack(connections_offset, axis=0),
+            connections_offset,
             unitcell,
         )
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env/ python3
+import os
 import math
 import numpy as np
 import pymatgen
