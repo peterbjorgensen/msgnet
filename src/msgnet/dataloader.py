@@ -30,7 +30,7 @@ class DataLoader:
     @property
     def final_dest(self):
         cutname = "%s-%.2f" % (self.cutoff_type, self.cutoff_radius)
-        return "/%s/%s_%s.pkz" % (
+        return "%s/%s_%s.pkz" % (
             msgnet.defaults.datadir,
             self.__class__.__name__,
             cutname,
